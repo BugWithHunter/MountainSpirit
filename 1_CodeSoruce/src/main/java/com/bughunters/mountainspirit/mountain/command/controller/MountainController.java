@@ -30,5 +30,4 @@ public class MountainController {
     public void mergeAllCourses() {
         mountainService.mergeAllCourses();
     }
-
 }

@@ -1,6 +1,9 @@
 package com.bughunters.mountainspirit.mountain.command.service;
 
+<<<<<<< HEAD:1_CodeSoruce/src/main/java/com/bughunters/mountainspirit/mountain/command/service/MountainService.java
 import com.bughunters.mountainspirit.mountain.command.dto.MountainDTO;
+=======
+>>>>>>> develop:1_CodeSoruce/src/main/java/com/bughunters/mountainspirit/Mountain/command/service/MountainService.java
 import com.bughunters.mountainspirit.mountain.command.dto.ResponseApiMountainDTO;
 import com.bughunters.mountainspirit.mountain.command.dto.ResponseApiPeakDTO;
 import com.bughunters.mountainspirit.mountain.command.entity.Course;
