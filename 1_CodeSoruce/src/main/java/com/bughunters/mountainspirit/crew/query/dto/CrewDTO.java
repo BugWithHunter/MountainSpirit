@@ -13,6 +13,10 @@ public class CrewDTO {
     private long id;
     private String crewName;
     private char crewIsRecruit;
+    private LocalDateTime crewCreateDate;
     private Integer crewMaxPeople;
+    private String crewIntro;
+    private char crewIsDeleted;
+    private int crewBanDate;
     private long crewRankGauge;
 }

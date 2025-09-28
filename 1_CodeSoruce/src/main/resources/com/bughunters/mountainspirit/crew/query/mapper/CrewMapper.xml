@@ -19,7 +19,11 @@
                a.id
              , a.crewName
              , a.crewIsRecruit
+             , a.crewCreateDate
              , a.crewMaxPeople
+             , a.crewIntro
+             , a.crewIsDeleted
+             , a.crewBanDate
              , a.crewRankGauge
           FROM Crew a
     </select>
