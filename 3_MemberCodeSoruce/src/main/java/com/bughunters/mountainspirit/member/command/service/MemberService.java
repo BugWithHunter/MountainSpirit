@@ -21,5 +21,9 @@ public interface MemberService {
 
     void updateCompleteLogin(RequsetloginHisotry loginHistory);
 
+<<<<<<< HEAD
     boolean updateStatus(Long id, ReportMemberUpdateDTO dto);
+=======
+    void registCrewId(long crewId, long cumId);
+>>>>>>> test/separate-server
 }

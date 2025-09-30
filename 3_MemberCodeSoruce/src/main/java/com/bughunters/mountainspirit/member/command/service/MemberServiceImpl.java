@@ -11,12 +11,14 @@ import com.bughunters.mountainspirit.member.command.repository.MemberRepository;
 import com.bughunters.mountainspirit.member.query.dto.BlackListDTO;
 import com.bughunters.mountainspirit.member.command.dto.RequestLoginwithAuthoritiesDTO;
 import com.bughunters.mountainspirit.member.query.service.MemberQueryService;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -26,6 +28,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
@@ -49,7 +52,7 @@ public class MemberServiceImpl implements MemberService {
 
     //등산 이후 회원 정보 변경
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public ResponseStatusDTO modifyStatusAfterClimbMountian(RequestModifyStatusOfMemberDTO modifyStatusOfMemberDTO) {
         Member member = memberRepository.findById(modifyStatusOfMemberDTO.getCumId()).orElse(null);
 
@@ -58,8 +61,10 @@ public class MemberServiceImpl implements MemberService {
         }
         Long previousRankId = member.getMemRankId() == null ? 0 : member.getMemRankId();
         // 합산 점수 적용
+        System.out.println("modifyStatusAfterClimbMountian 1");
         int score = member.getScore() + modifyStatusOfMemberDTO.getSummaryScore();
         member.setScore(score);
+        System.out.println("modifyStatusAfterClimbMountian 2");
 
         int findKey = modifyStatusOfMemberDTO.getBaseMemberRanks()
                 .keySet()
@@ -75,17 +80,22 @@ public class MemberServiceImpl implements MemberService {
                                 .max(Integer::compareTo).get());
         Long findRankId = modifyStatusOfMemberDTO.getBaseMemberRanks().get(findKey);
 
+        System.out.println("modifyStatusAfterClimbMountian 3");
         member.setMemRankId(findRankId);
+        memberRepository.saveAndFlush(member);
 
+        System.out.println("modifyStatusAfterClimbMountian 4");
         ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
         responseStatusDTO.setScore(score);
         responseStatusDTO.setMemRankId(findRankId);
         responseStatusDTO.setCumNm(member.getMemName());
 
+        System.out.println("modifyStatusAfterClimbMountian 5");
         // 등급업으로 프론트에 변경 됐다는것을 알리기 위함
         if (!previousRankId.equals(member.getMemRankId())) {
             responseStatusDTO.setModifyMemberRank(true);
         }
+        System.out.println("modifyStatusAfterClimbMountian 6");
 
         return responseStatusDTO;
     }
@@ -215,6 +225,7 @@ public class MemberServiceImpl implements MemberService {
         loginRecordRepository.save(loginRecord);
     }
 
+<<<<<<< HEAD
     @Override
     public boolean updateStatus(Long id, ReportMemberUpdateDTO dto) {
         Optional<Member> optionalMember = memberRepository.findById(id);
@@ -231,6 +242,20 @@ public class MemberServiceImpl implements MemberService {
 
         memberRepository.save(member);
         return true;
+=======
+    // Member id 를 받아 crew id 삽입
+    @Override
+    @Transactional
+    public void registCrewId(long crewId, long cumId) {
+        Member member = memberRepository.findById(cumId).orElse(null);
+        log.info("service member 정보 : {}",member);
+        if(member == null)
+            return;
+        member.setCrewId(crewId);
+        log.info("feign 통신 받는쪽 끝났어요");
+        memberRepository.flush();
+        log.info("flust 실행");
+>>>>>>> test/separate-server
     }
 
 
