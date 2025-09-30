@@ -101,7 +101,7 @@ public class MemberController {
                 .body(responseMessage);
     }
 
-    @GetMapping("/crew-insertion")
+    @GetMapping("/crew-regist")
     public ResponseEntity<ResponseMessage> crewInfoInsertion(long crewId,long cumId) {
         ResponseMessage responseMessage = new ResponseMessage();
         memberService.registCrewId(crewId,cumId);
