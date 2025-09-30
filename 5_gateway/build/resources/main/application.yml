@@ -12,6 +12,22 @@ spring:
   cloud:
     gateway:
       routes:
+        - id: member-client-login
+          uri: lb://MEMBER-CLIENT/
+          predicates:
+            - Path=/member-client/member/login
+            - Method=POST
+          filters:
+            - RewritePath=/main-client/(?<segment>.*), /$\{segment}
+
+        - id: member-client-add-client
+          uri: lb://MEMBER-CLIENT/
+          predicates:
+            - Path=/member-client/member/member
+            - Method=POST
+          filters:
+            - RewritePath=/main-client/(?<segment>.*), /$\{segment}
+
         - id: main-client
           uri: lb://MAIN-CLIENT
           predicates:
