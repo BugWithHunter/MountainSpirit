@@ -281,6 +281,34 @@
 
 <details>
   <summary>크루 테스트</summary>
+  <details>
+  
+  <summary>크루</summary>
+  
+  - 전체 크루 목록 조회
+  <img width="718" height="908" alt="스크린샷 2025-09-30 183905" src="https://github.com/user-attachments/assets/3fcb9f50-f95c-49e6-91a0-b0b2ed573b96" />
+
+  - 특정 크루 목록 조회
+  <img width="696" height="906" alt="스크린샷 2025-09-30 183935" src="https://github.com/user-attachments/assets/40ca098c-3796-41e4-accd-73c4743b4f55" />
+
+  - 크루 생성
+  <img width="1860" height="895" alt="스크린샷 2025-09-30 184252" src="https://github.com/user-attachments/assets/d470e8c8-1676-4cf4-826c-e8783fb7a85c" />
+
+  - 크루 수정
+  <img width="1861" height="872" alt="스크린샷 2025-09-30 184443" src="https://github.com/user-attachments/assets/58170305-f912-448c-8b86-f7a38cdce37b" />
+
+  - 크루 삭제
+  <img width="1864" height="854" alt="스크린샷 2025-09-30 184458" src="https://github.com/user-attachments/assets/5c5e92c6-e1f4-4f40-bcbd-bf04d3892b9f" />
+
+</details>
+  <details>
+  <summary>크루 구성원</summary>
+    
+</details>
+  <details>
+  <summary>크루 등산</summary>
+    
+</details>
 </details>
 
 <details>
