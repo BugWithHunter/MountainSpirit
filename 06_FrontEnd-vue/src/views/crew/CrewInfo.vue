@@ -9,8 +9,8 @@
           <p>크루 티어 : {{ crew.tier }}</p>
         </div>
         <div v-if="role.roleId===2">
-          <button class="leave-btn">크루 신청 리스트</button>
-          <button class="leave-btn">크루 정보 수정</button>
+          <button class="feature-btn">크루 신청 리스트</button>
+          <button class="feature-btn">크루 정보 수정</button>
           <button class="leave-btn">크루 삭제</button>
         </div> 
         <div v-else>
@@ -32,8 +32,8 @@
               <div class="date">가입 날짜 : {{ member.joinDate }}</div>
             </div>
             <div class="role">
+              <button @click="banCrewMember(member.id)" class="ban-btn" v-if="role.roleId===2 && member.roleId!==2">추방</button>
               {{ member.role }}
-              <button class="ban-btn" v-if="role.roleId===2 && member.roleId!==2">추방</button>
             </div>
           </li>
         </ul>
@@ -56,7 +56,7 @@ const crew = ref({
 const crewRoute = useRoute();
 const role = ref('');
 const members = ref([]);
-    onMounted(async () => {
+const getInfo = async () => {
         const [crewReq,memberReq] = await Promise.all([
             axios.get(`http://localhost:8000/main-client/crew/crew-info/${crewRoute.params.crewId}`,{
                 headers:{"Authorization":"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJrYW5nOTk5OTk5QGV4YW1wbGUuY29tIiwiYXV0aCI6WyJST0xFX01FTUJFUiJdLCJ1c2VybmFtZSI6IuqwleyCsOyLoOuguSIsImlkIjoyMTcsImJpcnRoIjoiMTk4Ni0wMy0wOCIsIm1lbVN0c0lkIjoxLCJleHAiOjE3NjE1Njc3OTl9.hrkEktZ_X20kC-eju4Yx63eItDilxt5-2Fi0AjtGx6Xlryc9SQ8rYmwEFJ3Neiuj8GgLwHynCdPokZXlt1IZAA"}
@@ -97,7 +97,8 @@ const members = ref([]);
     });
     console.log(role.value.roleId);
 
-    })
+    }
+    onMounted(getInfo);
 </script>
 
 <style scoped>
@@ -139,6 +140,25 @@ const members = ref([]);
   color: #666;
 }
 
+.feature-btn {
+  margin-top: 20px;
+  width: 100%;
+  background: #fff;
+  border: 2px solid #aaa;
+  color:#333;
+  border-radius: 6px;
+  padding: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition-duration: 0.5s;
+}
+
+.feature-btn:hover {
+  background: #010101;
+  color: #ebebeb;
+  transition-duration: 0.5s;
+}
+
 .leave-btn {
   margin-top: 20px;
   width: 100%;
@@ -158,23 +178,7 @@ const members = ref([]);
   transition-duration: 0.5s;
 }
 
-.ban-btn {
-  width: 6cap;
-  background: #fff;
-  border: 2px solid #aaa;
-  color:#333;
-  border-radius: 6px;
-  padding: 4px;
-  cursor: pointer;
-  font-weight: 600;
-  transition-duration: 0.5s;
-}
 
-.ban-btn:hover {
-  background: #ff2418;
-  color: #ebebeb;
-  transition-duration: 0.5s;
-}
 
 /* 오른쪽: 크루원 목록 */
 .crew-members {
@@ -245,5 +249,24 @@ const members = ref([]);
   font-size: 0.9rem;
   font-weight: 500;
   color: #333;
+}
+
+.ban-btn {
+  margin-right:10px;
+  width:6cap;
+  background: #fff;
+  border: 2px solid #aaa;
+  color:#333;
+  border-radius: 6px;
+  padding: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition-duration: 0.5s;
+}
+
+.ban-btn:hover {
+  background: #ff2418;
+  color: #ebebeb;
+  transition-duration: 0.5s;
 }
 </style>
