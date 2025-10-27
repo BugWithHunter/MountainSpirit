@@ -8,15 +8,14 @@
           <p>인원 : {{ crew.memberCount }} / {{ crew.maxCount }}</p>
           <p>크루 티어 : {{ crew.tier }}</p>
         </div>
-        <!-- <div v-if="role===2">
+        <div v-if="role.roleId===2">
           <button class="leave-btn">크루 신청 리스트</button>
           <button class="leave-btn">크루 정보 수정</button>
           <button class="leave-btn">크루 삭제</button>
         </div> 
-         <div v-else>
+        <div v-else>
           <button class="leave-btn">크루 탈퇴</button>
-        </div>  -->
-        <button class="leave-btn">크루 탈퇴</button>
+        </div>
         
       </section>
 
@@ -32,7 +31,10 @@
               <div class="name">{{ member.name }}</div>
               <div class="date">가입 날짜 : {{ member.joinDate }}</div>
             </div>
-            <div class="role">{{ member.role }}</div>
+            <div class="role">
+              {{ member.role }}
+              <button class="ban-btn" v-if="role.roleId===2 && member.roleId!==2">추방</button>
+            </div>
           </li>
         </ul>
       </section>
@@ -66,8 +68,8 @@ const members = ref([]);
         
         const crewData = crewReq.data;
         const memberData = memberReq.data;
-        // console.log(crewData);
-        // console.log(memberData);
+        console.log(crewData);
+        console.log(memberData);
 
          crew.value = {
       name: crewData.crewName,
@@ -84,18 +86,17 @@ const members = ref([]);
       name: m.memberList.nickName,
       joinDate: m.crewMemberJoinDate,
       role: m.crewRole.crewRoleName,
+      roleId: m.crewRole.roleId
     }));
 
     console.log(crew.value);
     console.log(members.value);
     
-    let memberRole = members.value.find(member=>{
-      console.log(member.userId);
-      member.userId==200
+    role.value = members.value.find(member=>{
+      if(member.userId===158)return member;
     });
-    console.log(memberRole);
-    role.value = memberRole.userId;
-    console.log(role.value);
+    console.log(role.value.roleId);
+
     })
 </script>
 
@@ -121,7 +122,7 @@ const members = ref([]);
   border-radius: 10px;
   padding: 20px;
   width: 250px;
-  height: 200px;
+  height: 330px;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -152,6 +153,24 @@ const members = ref([]);
 }
 
 .leave-btn:hover {
+  background: #ff2418;
+  color: #ebebeb;
+  transition-duration: 0.5s;
+}
+
+.ban-btn {
+  width: 6cap;
+  background: #fff;
+  border: 2px solid #aaa;
+  color:#333;
+  border-radius: 6px;
+  padding: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition-duration: 0.5s;
+}
+
+.ban-btn:hover {
   background: #ff2418;
   color: #ebebeb;
   transition-duration: 0.5s;
