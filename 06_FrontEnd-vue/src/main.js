@@ -3,6 +3,8 @@ import App from './App.vue'
 import indexRoutes from './router/index.routes.js'
 import { createPinia } from 'pinia';             // Pinia 컨테이너 생성 함수
 import piniaPersistedState from 'pinia-plugin-persistedstate'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
 const app = createApp(App);
 

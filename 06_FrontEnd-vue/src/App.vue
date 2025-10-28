@@ -4,7 +4,6 @@
   import MountainAll from './views/mountainall/MountainAll.vue';
   import headerComponent from './components/Header.vue';
   import FooterView from './views/FooterView.vue';
-
 </script>
 
 <template>
@@ -14,6 +13,7 @@
   <!-- 본문 -->
   <main>
     <RouterView/>
+    <!-- <ProductPage /> -->
     <!-- <MountainAll/> -->
   </main>
 
