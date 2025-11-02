@@ -79,7 +79,7 @@
     
     const showLoginMenu = ref(false);
     const showSubmenu = ref(false);
-    console.log('userStore.isLoggedIn:',userStore.isLoggedIn);
+    
     // 파생값은 computed를 사용 (값이 변하면 계산을 다시해서 반환하며 변하지 않으면 캐싱된 데이터 반환)
     const loginMenu = computed(() => (userStore.isLoggedIn ? '로그아웃' : '로그인'))
     const pageTitle = ['크루', '랭킹', '게시판', '산 목록'];
@@ -127,7 +127,6 @@ async function onFileSelected(e) {
       exceptionMessage,
     } = responseData ?? {}
 
-    console.log('업로드 응답:', { httpStatus, successUpload, urlPath, dirPath, filePath, exceptionMessage })
 
     if (httpStatus !== 200 || !successUpload || !urlPath) {
       alert('프로필 변경 실패: ' + (exceptionMessage || '알 수 없는 오류'))
@@ -138,7 +137,6 @@ async function onFileSelected(e) {
     setTimeout(async() => {
       await userStore.changeProfile(urlPath)
     },300)
-    // alert('프로필이 변경되었습니다.')
   } catch (err) {
     console.error(err)
     alert('업로드 실패 :' , err)
